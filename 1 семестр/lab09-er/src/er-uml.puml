@@ -1,0 +1,58 @@
+@startuml
+' ER-диаграмма ИС проектной организации (UML, нотация IE)
+hide circle
+skinparam linetype ortho
+
+entity "отдел" as department {
+  *номер_отдела : integer <<generated>>
+  --
+  *название_отдела : text
+  *этаж : integer
+  *телефон : text
+  начальник_отдела : text
+}
+
+entity "сотрудник" as employee {
+  *номер_сотрудника : integer <<generated>>
+  --
+  *фио : text
+  *должность : text
+  *номер_отдела : integer <<FK>>
+  *пол : char(1)
+  адрес : text
+  *дата_рождения : date
+}
+
+entity "организация" as organization {
+  *номер_организации : integer <<generated>>
+  --
+  *название_организации : text
+  *тип_деятельности : text
+  *страна : text
+  *город : text
+  адрес : text
+  *фио_директора : text
+}
+
+entity "договор" as contract {
+  *номер_договора : integer <<generated>>
+  --
+  *дата_заключения : date
+  *номер_организации : integer <<FK>>
+  *стоимость : numeric(12,2)
+}
+
+entity "проектная_работа" as project_work {
+  *номер_работы : integer <<generated>>
+  --
+  *дата_начала : date
+  дата_завершения : date
+  *номер_договора : integer <<FK>>
+  *номер_отдела : integer <<FK>>
+}
+
+department ||..o{ employee
+organization ||..o{ contract
+contract ||..o{ project_work
+department ||..o{ project_work
+@enduml
