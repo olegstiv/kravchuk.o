@@ -1,0 +1,9 @@
+@startuml
+node "Сервер баз данных" as dbs {
+component [База данных]
+}
+node "Рабочая станция" as ws {
+component Приложение
+}
+dbs -- ws
+@enduml
