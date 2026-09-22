@@ -1,0 +1,20 @@
+@startuml
+start
+:ввести текст для поиска;
+if (подключиться к базе данных?) then (yes)
+  :создать курсор;
+else (no)
+  stop;
+endif
+:создать пустой список;
+while (select * from project_work where ... like ...;) is (not empty)
+:добавить работу в список;
+endwhile (empty)
+:закрыть подключение к базе данных;
+if (список пустой?) then (yes)
+  :показать сообщение "Ничего не найдено";
+else (no)
+  :показать найденные работы;
+endif
+stop
+@enduml
