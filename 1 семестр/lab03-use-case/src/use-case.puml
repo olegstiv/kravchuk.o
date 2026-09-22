@@ -1,0 +1,125 @@
+@startuml
+left to right direction
+
+' ===== Действующие лица =====
+:Сотрудник организации: as Emp
+:Менеджер по договорам: as Manager
+:Кадровик: as HR
+:Исполнитель: as Worker
+:Администратор: as Admin
+
+' ===== Обобщение: роли — частные случаи сотрудника организации =====
+Emp <|-- Manager
+Emp <|-- HR
+Emp <|-- Worker
+Emp <|-- Admin
+
+(Аутентификация) as UC_Auth
+
+' --- Менеджер по договорам ---
+(Управление \nорганизациями) as UC_Org
+(Добавление \nорганизации) as UC_OrgAdd
+(Изменение \nорганизации) as UC_OrgUpd
+(Удаление \nорганизации) as UC_OrgDel
+(Просмотр \nорганизаций) as UC_OrgView
+(Поиск \nорганизации) as UC_OrgFind
+
+(Управление \nдоговорами) as UC_Contract
+(Добавление \nдоговора) as UC_ContractAdd
+(Изменение \nдоговора) as UC_ContractUpd
+(Удаление \nдоговора) as UC_ContractDel
+(Просмотр \nдоговоров) as UC_ContractView
+(Поиск \nдоговора) as UC_ContractFind
+
+(Управление \nпроектными работами) as UC_WorkManage
+(Добавление \nпроектной работы) as UC_WorkAdd
+(Изменение \nпроектной работы) as UC_WorkUpd
+(Удаление \nпроектной работы) as UC_WorkDel
+(Просмотр \nпроектных работ) as UC_WorkView
+(Поиск \nпроектной работы) as UC_WorkFind
+
+' --- Кадровик ---
+(Управление \nотделами) as UC_Dept
+(Добавление \nотдела) as UC_DeptAdd
+(Изменение \nотдела) as UC_DeptUpd
+(Удаление \nотдела) as UC_DeptDel
+(Просмотр \nотделов) as UC_DeptView
+(Поиск \nотдела) as UC_DeptFind
+
+(Управление \nсотрудниками) as UC_Staff
+(Добавление \nсотрудника) as UC_StaffAdd
+(Изменение \nсотрудника) as UC_StaffUpd
+(Удаление \nсотрудника) as UC_StaffDel
+(Просмотр \nсотрудников) as UC_StaffView
+(Поиск \nсотрудника) as UC_StaffFind
+
+' --- Администратор ---
+(Управление \nпользователями ИС) as UC_Users
+(Добавление \nпользователя) as UC_UserAdd
+(Изменение \nпользователя) as UC_UserUpd
+(Удаление \nпользователя) as UC_UserDel
+(Просмотр \nпользователей) as UC_UserView
+
+(Резервирование \nданных ИС) as UC_Backup
+(Создание \nрезервной копии) as UC_BackupMake
+(Восстановление \nиз резервной копии) as UC_BackupRestore
+
+' ===== Ассоциации =====
+' Аутентификация — общая для всех, висит на предке и наследуется ролями
+Emp --> UC_Auth
+
+Manager --> UC_Org
+Manager --> UC_Contract
+Manager --> UC_WorkManage
+
+' Исполнитель только просматривает проектные работы
+Worker --> UC_WorkView
+
+HR --> UC_Dept
+HR --> UC_Staff
+
+Admin --> UC_Users
+Admin --> UC_Backup
+
+' ===== Зависимости: включает (обязательная часть) =====
+UC_Org ..> UC_OrgAdd : включает
+UC_Org ..> UC_OrgUpd : включает
+UC_Org ..> UC_OrgDel : включает
+UC_Org ..> UC_OrgView : включает
+
+UC_Contract ..> UC_ContractAdd : включает
+UC_Contract ..> UC_ContractUpd : включает
+UC_Contract ..> UC_ContractDel : включает
+UC_Contract ..> UC_ContractView : включает
+
+UC_WorkManage ..> UC_WorkAdd : включает
+UC_WorkManage ..> UC_WorkUpd : включает
+UC_WorkManage ..> UC_WorkDel : включает
+UC_WorkManage ..> UC_WorkView : включает
+
+UC_Dept ..> UC_DeptAdd : включает
+UC_Dept ..> UC_DeptUpd : включает
+UC_Dept ..> UC_DeptDel : включает
+UC_Dept ..> UC_DeptView : включает
+
+UC_Staff ..> UC_StaffAdd : включает
+UC_Staff ..> UC_StaffUpd : включает
+UC_Staff ..> UC_StaffDel : включает
+UC_Staff ..> UC_StaffView : включает
+
+UC_Users ..> UC_UserAdd : включает
+UC_Users ..> UC_UserUpd : включает
+UC_Users ..> UC_UserDel : включает
+UC_Users ..> UC_UserView : включает
+
+UC_Backup ..> UC_BackupMake : включает
+UC_Backup ..> UC_BackupRestore : включает
+
+' ===== Зависимости: расширяет (необязательное дополнение, стрелка к базовому) =====
+UC_OrgView <.. UC_OrgFind : расширяет
+UC_ContractView <.. UC_ContractFind : расширяет
+UC_WorkView <.. UC_WorkFind : расширяет
+UC_DeptView <.. UC_DeptFind : расширяет
+UC_StaffView <.. UC_StaffFind : расширяет
+
+@enduml
