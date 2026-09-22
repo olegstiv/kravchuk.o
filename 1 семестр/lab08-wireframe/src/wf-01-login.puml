@@ -1,0 +1,8 @@
+@startsalt
+{
+  Вход в ИС проектной организации
+  login    | "user"
+  password | "****"
+  [Cancel] | [ OK ]
+}
+@endsalt
