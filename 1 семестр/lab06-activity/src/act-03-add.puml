@@ -1,12 +1,24 @@
 @startuml
 start
-:ввести данные сотрудника;
+:выбрать раздел;
+:ввести данные;
 if (все поля заполнены?) then (yes)
   if (подключиться к базе данных?) then (yes)
-    :insert into employee ...;
+    switch (раздел?)
+    case (отделы)
+      :insert into department ...;
+    case (сотрудники)
+      :insert into employee ...;
+    case (организации)
+      :insert into organization ...;
+    case (договоры)
+      :insert into contract ...;
+    case (проектные работы)
+      :insert into project_work ...;
+    endswitch
     :сохранить изменения;
     :закрыть подключение к базе данных;
-    :показать сообщение "Сотрудник добавлен";
+    :показать сообщение "Запись добавлена";
   else (no)
     :показать сообщение об ошибке;
   endif

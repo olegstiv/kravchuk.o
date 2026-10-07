@@ -1,9 +1,21 @@
 @startuml
 start
-:выбрать организацию;
+:выбрать раздел;
+:выбрать запись;
 :ввести новые данные;
 if (подключиться к базе данных?) then (yes)
-  :update organization set ...;
+  switch (раздел?)
+  case (отделы)
+    :update department set ...;
+  case (сотрудники)
+    :update employee set ...;
+  case (организации)
+    :update organization set ...;
+  case (договоры)
+    :update contract set ...;
+  case (проектные работы)
+    :update project_work set ...;
+  endswitch
   :сохранить изменения;
   :закрыть подключение к базе данных;
   :показать сообщение "Данные изменены";

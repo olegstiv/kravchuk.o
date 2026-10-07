@@ -1,12 +1,24 @@
 @startuml
 start
-:выбрать отдел;
-if (удалить отдел?) then (yes)
+:выбрать раздел;
+:выбрать запись;
+if (удалить запись?) then (yes)
   if (подключиться к базе данных?) then (yes)
-    :delete from department where id = ...;
+    switch (раздел?)
+    case (отделы)
+      :delete from department where id = ...;
+    case (сотрудники)
+      :delete from employee where id = ...;
+    case (организации)
+      :delete from organization where id = ...;
+    case (договоры)
+      :delete from contract where id = ...;
+    case (проектные работы)
+      :delete from project_work where id = ...;
+    endswitch
     :сохранить изменения;
     :закрыть подключение к базе данных;
-    :показать сообщение "Отдел удалён";
+    :показать сообщение "Запись удалена";
   else (no)
     :показать сообщение об ошибке;
   endif

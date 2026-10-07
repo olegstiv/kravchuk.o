@@ -1,14 +1,27 @@
 @startuml
 start
+:выбрать раздел;
 if (подключиться к базе данных?) then (yes)
   :создать курсор;
 else (no)
   stop;
 endif
+switch (раздел?)
+case (отделы)
+  :select * from department;;
+case (сотрудники)
+  :select * from employee;;
+case (организации)
+  :select * from organization;;
+case (договоры)
+  :select * from contract;;
+case (проектные работы)
+  :select * from project_work;;
+endswitch
 :создать пустой список;
-while (select * from contract;) is (not empty)
-:добавить договор в список;
-endwhile (empty)
+while (есть следующая строка?) is (yes)
+:добавить запись в список;
+endwhile (no)
 :закрыть подключение к базе данных;
 :вернуть список;
 stop

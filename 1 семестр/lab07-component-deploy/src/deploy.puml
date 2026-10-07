@@ -4,6 +4,12 @@ component [База данных]
 }
 node "Рабочая станция" as ws {
 component Приложение
+artifact model.py
+artifact controller.py
+artifact view.py
+Приложение <-- model.py
+Приложение <-- controller.py
+Приложение <-- view.py
 }
 dbs -- ws
 @enduml

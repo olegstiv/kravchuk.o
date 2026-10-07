@@ -14,12 +14,4 @@
 Организация -- [База данных]
 Договор -- [База данных]
 ПроектнаяРабота -- [База данных]
-
-artifact model.py
-artifact controller.py
-artifact view.py
-
-model.py --> Приложение
-controller.py --> Приложение
-view.py --> Приложение
 @enduml

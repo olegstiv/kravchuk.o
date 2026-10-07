@@ -8,6 +8,7 @@ import db
 NEW_ROW_COLOUR = wx.Colour(255, 250, 205)   # новая, ещё не сохранённая строка
 EDIT_COLOUR = wx.Colour(220, 245, 220)      # колонка, которую можно изменить
 HINT_COLOUR = wx.Colour(128, 128, 128)
+TEXT_COLOUR = wx.Colour(0, 0, 0)            # на светлом фоне; иначе в тёмной теме текст белый
 
 # Описание вкладок: колонки таблицы и функции db.py для каждого варианта использования.
 # change_col — номер колонки, которую меняет функция update_* из ЛР 12.
@@ -117,6 +118,7 @@ class EntityPanel(wx.Panel):
                 grid.SetCellValue(i, col, '' if row[col] is None else str(row[col]))
                 grid.SetReadOnly(i, col, col != self.entity['change_col'])
             grid.SetCellBackgroundColour(i, self.entity['change_col'], EDIT_COLOUR)
+            grid.SetCellTextColour(i, self.entity['change_col'], TEXT_COLOUR)
         self.loaded = len(rows)
         grid.AutoSizeColumns(False)
         grid.ForceRefresh()
@@ -149,6 +151,7 @@ class EntityPanel(wx.Panel):
         self.grid.SetReadOnly(row, 0, True)      # номер присвоит БД (serial)
         for col in range(self.grid.GetNumberCols()):
             self.grid.SetCellBackgroundColour(row, col, NEW_ROW_COLOUR)
+            self.grid.SetCellTextColour(row, col, TEXT_COLOUR)
         self.grid.SetGridCursor(row, 1)
         self.grid.MakeCellVisible(row, 1)
         self.grid.SetFocus()
